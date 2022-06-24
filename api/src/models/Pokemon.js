@@ -12,9 +12,9 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true, 
-      validate: {
-        min: 3000, //intento de separar el id de la db de la api.
-      }
+      // validate: {
+      //   min: 3000, //intento de separar el id de la db de la api.
+      // }
     },
 
     hp: {
@@ -55,5 +55,6 @@ module.exports = (sequelize) => {
         max: 1000,
       } //y ahora como hago los tipos? un modelo aparte y una propiedad en los pokemon? una tabla de relacion?
     }
-  });
+  }
+  );
 };

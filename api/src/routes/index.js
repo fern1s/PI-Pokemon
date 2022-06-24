@@ -1,44 +1,61 @@
-const { Router } = require('express');
+//const { Router } = require('express');
+const express = require('express');
 //const Pokemon = require('../models/Pokemon.js');
 const { Pokemon, Type } = require("../db.js");
+const fetch = require("node-fetch"); //lo instalé e importé yo para que ande el fetch
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 
-const router = Router();
+const router = express.Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
+router.use(express.json())
+
 router.get("/pokemons", async (req, res) => {
     if(req.query.name){
         const { name } = req.query;
         const consult = await Pokemon.findOne({ where: { name: `${name}` } });
-        if(consult){
+        if(consult){    //me fijo si el poke está en la DB
             return res.json(consult)
         }
         const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-        if(result){
-            return res.json(result)
+        const pokeparsed = await result.json();
+        if(pokeparsed){ //me fijo si el pokemon está en la api
+            let obj = {
+                id: pokeparsed.id,
+                name: pokeparsed.name,
+                types: pokeparsed.types,
+                image: pokeparsed.sprites.other.dream_world.front_default,
+            }
+            return res.json(obj)
         } else{
             res.send("No se encontró un pokemon con ese nombre :c")
         }
     }
     else{
- const list = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=40`)
- let response = [];
-list.results.forEach(elemento => {
-    let detalle = await fetch(`${elemento.url}`);
+ const call = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=5`)
+ const list = await call.json();
+ //console.log(list)
+
+ const arrayResponse = await list.results.map(async elemento => {
+    let pokeUrl = await fetch(`${elemento.url}`);
+    let details = await pokeUrl.json()
     let obj = {
-        id: detalle.id,
-        name: detalle.name,
-        types: detalle.types,
-        image: detalle.sprites.other.dream_world.front_default,
+        id: details.id,
+        name: details.name,
+        types: details.types,
+        image: details.sprites.other.dream_world.front_default,
     }
-    response.push(obj)
- });
-res.json(response);
- 
+    return obj;
+    });
+    Promise.all(arrayResponse)
+    .then(a => {res.json(a)})
+
  }});
+
+
 
  router.get("/pokemons/:id", async (req, res) => {
     const { id } = req.params;
@@ -46,7 +63,8 @@ res.json(response);
         let poke = await Pokemon.findByPk(id);
         return res.json(poke);
     } else{
-        let poke = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        let call = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        let poke = await call.json();
         let obj = {
             id: poke.id,
             name: poke.name,
@@ -64,12 +82,15 @@ res.json(response);
  })
 
  router.post("/pokemons", async (req, res) =>{
-    const { pokemon } = req.body;
+    console.log("body", req.body);
+    const { name } = req.body;
     try{
-        await Pokemon.create(pokemon)
+        await Pokemon.create({name: name})
+        //.then(a => {res.send("Pokemon creado con éxito")})
         res.send("Pokemon creado con éxito")
     }
     catch(e){
+        console.log(e)
         res.send("Algo salió mal");
     }
  })
@@ -81,8 +102,10 @@ para traer los tipos desde la base (sin que intente volver a crearlos en la db y
     if(req.query.flag){
         let consult = await Type.findAll()
         if(consult.length === 0){
-            const types = await fetch(`https://pokeapi.co/api/v2/type`); 
-            types.results.forEach(el => {
+            const call = await fetch(`https://pokeapi.co/api/v2/type`);
+            const types = await call.json(); 
+            console.log(types);
+            types.results.forEach(async el => {
             await Type.create(el.name);
         })   
     } 

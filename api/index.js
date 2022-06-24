@@ -22,6 +22,7 @@ const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
+  conn.query(`alter sequence pokemons_id_seq restart with 3000;`)  //agregado para el tema ids
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
