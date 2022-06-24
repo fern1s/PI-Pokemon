@@ -35,7 +35,7 @@ router.get("/pokemons", async (req, res) => {
         }
     }
     else{
- const call = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=5`)
+ const call = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=40`)
  const list = await call.json();
  //console.log(list)
 
@@ -100,16 +100,23 @@ router.get("/pokemons", async (req, res) => {
 para cargar los datos en la base, y luego en el form simplemente usar esta misma ruta con flag=false,
 para traer los tipos desde la base (sin que intente volver a crearlos en la db y toda la cosa)*/
     if(req.query.flag){
+        console.log(req.query);
         let consult = await Type.findAll()
         if(consult.length === 0){
             const call = await fetch(`https://pokeapi.co/api/v2/type`);
             const types = await call.json(); 
-            console.log(types);
-            types.results.forEach(async el => {
-            await Type.create(el.name);
-        })   
-    } 
-    return res.send("Éxito");      
+            console.log(types.results);
+            let valores = []
+            types.results.forEach(e => {
+                let obj = {
+                    name: e.name
+                }
+                valores.push(obj);
+            })
+            await Type.bulkCreate(valores);
+            return res.send("Éxito")  
+    }
+    return res.send("nada")     
 }   
     let response = await Type.findAll()
     res.json(response);
