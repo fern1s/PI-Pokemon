@@ -1,0 +1,16 @@
+/* no se como hacer para centrar todo (hacer que el div ocupe todo el espacio)*/
+.container {
+    display: flex;
+    width: 100vw;
+    height:100vh;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
+}
+
+.start {
+   font-size: 75px;
+   background-color: yellow;
+  }
+  
+  

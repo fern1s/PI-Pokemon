@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+	align-items: center;
+	justify-content: space-around; /*space between los deja en los extremos 
+     añadir separación entre los botones*/
+    height: 10vh;
+    width: 100vw;
+    background-color: red;
+}
+
+.logo {
+    max-height: 90%;
+    max-width: 95%;
+}

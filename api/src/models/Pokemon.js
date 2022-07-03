@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
       validate: {
         min: 0,
         max: 1000,
-      } //y ahora como hago los tipos? un modelo aparte y una propiedad en los pokemon? una tabla de relacion?
+      } 
     }
   }
   );
