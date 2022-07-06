@@ -2,8 +2,8 @@
 const express = require('express');
 //const Pokemon = require('../models/Pokemon.js');
 const { Pokemon, Type } = require("../db.js");
-const fetch = require("node-fetch"); //lo instalé e importé yo para que ande el fetch
 const axios = require("axios")
+const niveladorType = require("./utils")
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -18,46 +18,44 @@ router.use(express.json())
     if(req.query.name){
         try{
         const { name } = req.query;
-        const consult = await Pokemon.findOne({ where: { name: `${name}` } });
+        const consult = await Pokemon.findOne({ where: { name: `${name.toLowerCase()}` }, include:{model: Type} });
         if(consult){    //me fijo si el poke está en la DB
-            return res.send(consult)
+            return res.send([consult])
         } 
-        const result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        const result = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
         if(result){ //me fijo si el pokemon está en la api
             let obj = {
                 id: result.data.id,
                 name: result.data.name,
-                types: result.data.types,
+                attack: result.data.stats[1].base_stat,
+                types: niveladorType(result.data.types),
                 image: result.data.sprites.other.dream_world.front_default,
             }
-            return res.send(obj)
+            return res.send([obj])
         }
-        } catch(e){res.send("No se encontró un pokemon con ese nombre :c")}
+        } catch(e){res.send([])}
     }
     else{
-        try { //el LIMIT está en 20, ojo
+        try { 
             const list = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=40`) 
             const arrayResponse = await list.data.results.map(async elemento => {
                let details = await axios.get(`${elemento.url}`);
-               //let details = await pokeUrl.json()
+               
                let obj = {
                    id: details.data.id,
                    name: details.data.name,
-                   types: details.data.types,
+                   attack: details.data.stats[1].base_stat,
+                   types: niveladorType(details.data.types),
                    image: details.data.sprites.other.dream_world.front_default,
                }
                return obj;
                });
                const allApi = await Promise.all(arrayResponse);
-               const allDb = await Pokemon.findAll();
+               const allDb = await Pokemon.findAll({ include:{model: Type} });
                const total = allApi.concat(allDb);
                res.status(200).send(total);
         }
         catch(e){res.status(400).send("Algo salió mal. " + e)}
-
-
-    //podría hacer un async findAll, y luego en el Promise.all poner (arrayResponse, :elfindAll:)? 
-    //hay que ver que con eso no quede un arreglo dentro de un arreglo, sino uno solo con todos los objetos de la api y db
 
  }});
 
@@ -67,7 +65,7 @@ router.use(express.json())
  router.get("/pokemons/:id", async (req, res) => {
     const { id } = req.params;
     if(id>= 3000){
-        let poke = await Pokemon.findByPk(id);
+        let poke = await Pokemon.findByPk(id, {include:{model: Type}});
         return res.json(poke);
     } else{
         let call = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -75,7 +73,7 @@ router.use(express.json())
         let obj = {
             id: call.data.id,
             name: call.data.name,
-            types: call.data.types,
+            types: niveladorType(call.data.types),
             image: call.data.sprites.other.dream_world.front_default,
             height: call.data.height,
             weight: call.data.weight,
@@ -92,9 +90,26 @@ router.use(express.json())
     //console.log("body", req.body);
     const { name } = req.body;
     try{
-        await Pokemon.create({name: name, hp: req.body.hp})
-        //.then(a => {res.send("Pokemon creado con éxito")})
-        res.send("Pokemon creado con éxito")
+        let createdPokemon = await Pokemon.create({ //guardar esto en una variable y mandarlo en res send. lo hago luego de lo otro por las dudas
+            name: name.toLowerCase(), 
+            hp: req.body.hp,
+            attack: req.body.attack,
+            defense: req.body.defense,
+            speed: req.body.speed,
+            height: req.body.height,
+            weight: req.body.weight
+        })
+        if(req.body.types.length > 1){
+            let type1 = await Type.findOne({ where: { name: `${req.body.types[0].name}` } })
+            let type2 = await Type.findOne({ where: { name: `${req.body.types[1].name}` } })
+            await createdPokemon.addType(type1)
+            await createdPokemon.addType(type2)
+        } else {
+            let type1 = await Type.findOne({ where: { name: `${req.body.types[0].name}` } })
+            await createdPokemon.addType(type1)  
+        }
+        
+        res.send("Pokemon creado con éxito " + createdPokemon)
     }
     catch(e){
         console.log(e)

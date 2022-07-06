@@ -4,6 +4,8 @@ import './index.css';
 
 import FirstPage from "./components/FirstPage";
 import Home from "./components/Home";
+import CreatePokemon from './components/CreatePokemon';
+import PokemonDetails from './components/PokemonDetails';
 
 import reportWebVitals from './reportWebVitals';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
@@ -29,6 +31,12 @@ const Root = ( //probando esto
       </Route>
       <Route exact path="/Home">
         <Home />
+      </Route>
+      <Route exact path="/create">
+        <CreatePokemon />
+      </Route>
+      <Route exact path="/pokemon/:id">
+        <PokemonDetails />
       </Route>
       <Route path="/">
         <h2>Default if no match</h2>

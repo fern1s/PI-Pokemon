@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import PokemonCard from "./PokemonCard";
 import PaginateComp from "./PaginateComp";
 import FilterBar from "./FilterBar";
-import { getPokemons } from "../actions/actions"
+import { getPokemons, orderBy, getTypes } from "../actions/actions"
 
 
 export default function Home(){
@@ -16,19 +16,32 @@ export default function Home(){
     const indexOfLastPokemon = currentPage * pokemonsPerPage;
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
     const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
-
+   
+    const [orden, setOrden] = useState("")
+   
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber)
     }
+    useEffect(()=>{
+        dispatch(getTypes("true"))
+        })
 
    useEffect(()=>{
     dispatch(getPokemons(""))
    }, [dispatch])
    
+   
    function handleClick(e){
     e.preventDefault();
     dispatch(getPokemons(""));
    }
+
+   function handleSort(e){
+    e.preventDefault();
+    dispatch(orderBy(e.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`)
+}
    
     return (
     <div>
@@ -38,6 +51,13 @@ export default function Home(){
         </button>
 
         <FilterBar />
+        <select onClick={e=>{handleSort(e)}}>
+            <option selected disabled hidden>Sort by</option>
+            <option value="az">A-z</option>
+            <option value="za">Z-a</option>
+            <option value="hat">Highest Attack</option>
+            <option value="lat">Lowest Attack</option>
+        </select>
 
         <PaginateComp 
         pokemonsPerPage = {pokemonsPerPage}

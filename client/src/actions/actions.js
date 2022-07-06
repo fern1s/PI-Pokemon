@@ -33,9 +33,30 @@ export function getTypes(flag) {
 }
 
 export function filterPokemonsBy(payload) {
-	console.log("filtrando", payload);
+	//console.log("filtrando", payload);
 	return {
-		type: "FILTER_POKEMONS_BY",
+		type: "FILTER_POKEMONS_BY_TYPE",
 		payload
+	}
+}
+
+export function filterByOrigin(origin){
+	return {
+		type: "FILTER_BY_ORIGIN",
+		payload: origin
+	}
+}
+
+export function orderBy(payload){
+	return{
+		type: "ORDER_BY",
+		payload	
+	}
+}
+
+export function searchPokemon(payload){
+	return async function(dispatch){
+		const res = await axios.get(`http://localhost:3001/pokemons?name=${payload}`);
+		return dispatch({type: "SEARCH_POKEMON", payload: res.data});
 	}
 }

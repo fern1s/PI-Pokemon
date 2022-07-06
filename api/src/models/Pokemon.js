@@ -1,12 +1,14 @@
 const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
+const image = "https://cdn.vox-cdn.com/thumbor/IhuPwFLVg19jF8B6rSmpy5T1-tY=/0x0:1920x1080/1400x788/filters:focal(807x387:1113x693):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/53254027/who_pokemon.0.jpg";
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('pokemon', {
     name: {
       type: DataTypes.STRING(20),
       allowNull: false,
+      unique: true
     },
     id: {
       type: DataTypes.INTEGER,
@@ -54,6 +56,10 @@ module.exports = (sequelize) => {
         min: 0,
         max: 1000,
       } 
+    },
+    image: {
+      type: DataTypes.STRING(),
+      defaultValue: image
     }
   }
   );
