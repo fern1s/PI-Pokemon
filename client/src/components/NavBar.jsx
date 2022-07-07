@@ -10,10 +10,10 @@ export default function NavBar(props) {
             <img src={`${imagen}`} alt="logo oficial Pokemon" className='logo' />
             <div>
                 <Link to="/home">
-                    <button>Home</button>
+                    <button className='btnNav'>Home</button>
                 </Link>
                 <Link to="/create">
-                    <button>Create Pokemon</button>
+                    <button className='btnNav'>Create Pokemon</button>
                 </Link>
             </div>
         </div>

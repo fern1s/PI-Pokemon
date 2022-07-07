@@ -1,0 +1,27 @@
+/* body{
+    background-color: rgba(243, 243, 11, 0.498);
+} */
+
+.pokemonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 10px;
+  
+  }
+
+  .homeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    
+  }
+
+  .refresh {
+    margin-top: 20px;
+    margin-bottom: 7px;
+  }
+  .slct {
+    margin-top: 10px;
+  }

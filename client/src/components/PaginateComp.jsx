@@ -1,4 +1,5 @@
 import React from "react";
+import "../css_modules/PaginateComp.css"
 
 export default function PaginateComp({pokemonsPerPage, allPokemons, paginate}) {
     const pageNumbers = []
@@ -8,17 +9,19 @@ export default function PaginateComp({pokemonsPerPage, allPokemons, paginate}) {
     }
 
 return (
-    <nav>
-        <ul>
+    <div className="greatContainer">
+        <ul className="pagContainer">
             {
                 pageNumbers?.map(number => {
                     return (
-                    <li key={number}>
-                    <a onClick={() => paginate(number)}> {number} </a>
+                    <li key={number} className="lista">
+                    <a className="ancla" 
+                    onClick={() => paginate(number)}> {number} </a>
                     </li>
                 )})
             }
         </ul>
-    </nav>
+    </div>
+    
 )
 }

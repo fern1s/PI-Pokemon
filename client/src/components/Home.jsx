@@ -5,6 +5,7 @@ import PokemonCard from "./PokemonCard";
 import PaginateComp from "./PaginateComp";
 import FilterBar from "./FilterBar";
 import { getPokemons, orderBy, getTypes } from "../actions/actions"
+import "../css_modules/Home.css"
 
 
 export default function Home(){
@@ -44,14 +45,15 @@ export default function Home(){
 }
    
     return (
-    <div>
+    <div className="homeContainer">
         <NavBar />
-        <button onClick={e=>{handleClick(e)}}>
+        
+        <button className="refresh" onClick={e=>{handleClick(e)}}>
             Volver a cargar los Pokemones
         </button>
 
-        <FilterBar />
-        <select onClick={e=>{handleSort(e)}}>
+        <FilterBar paginate={paginate}/>
+        <select onClick={e=>{handleSort(e)}} className="slct">
             <option selected disabled hidden>Sort by</option>
             <option value="az">A-z</option>
             <option value="za">Z-a</option>
@@ -64,17 +66,20 @@ export default function Home(){
         allPokemons = {allPokemons.length}
         paginate = {paginate}
         />
+        <div className="pokemonContainer">
         { 
            currentPokemons.length > 0 ? currentPokemons.map( (el) =>{
             
             return(
-                <fragment>
+                
                 <PokemonCard props={el}/>
-                </fragment>
+                
             )   
             })
             : <h2> Pokemons not found</h2>
         }
+        </div>
+    
 
     </div>
     )

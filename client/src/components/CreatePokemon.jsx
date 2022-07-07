@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTypes, postPokemon } from "../actions/actions";
 import NavBar from "./NavBar";
 import validateInput from "../utils/ValidateInput";
+import "../css_modules/CreatePokemon.css"
 
 
 export default function CreatePokemon(){
@@ -73,11 +74,12 @@ export default function CreatePokemon(){
     }
 
     return (
-        <div>
+        <div className="formContainer">
             <NavBar />
+            <div className="noNav">
             <h2>Create a Pokemon!</h2>
             <form onSubmit={e => handleSubmit(e)}>
-                <div>
+                <div className="labinp">
                     <label>Name:</label>
                     <input 
                     type = "text"
@@ -85,11 +87,15 @@ export default function CreatePokemon(){
                     name = "name"
                     onChange={(e) => handleInputChange(e)}
                     />
-                    {err.name && (
-                        <p>{err.name}</p>
-                    )}
+                   
                 </div>
-                <div>
+                {err.name? (
+                        <p>{err.name}</p>
+                    )
+                    : (<div className="spacer"></div>)
+                } 
+                
+                <div className="labinp">
                     <label>Life Points:</label>
                     <input 
                     type = "number"
@@ -97,11 +103,14 @@ export default function CreatePokemon(){
                     name = "hp"
                     onChange={(e) => handleInputChange(e)}
                     />
-                    {err.hp && (
-                        <p>{err.hp}</p>
-                    )}
+                    
                 </div>
-                <div>
+                {err.hp ? (
+                        <p>{err.hp}</p>
+                    )
+                    : (<div className="spacer"></div>)
+                }
+                <div className="labinp">
                 <label>Attack:</label>
                     <input 
                     type = "number"
@@ -109,11 +118,14 @@ export default function CreatePokemon(){
                     name = "attack"
                     onChange={(e) => handleInputChange(e)}
                     />  
-                     {err.attack && (
+                     
+                </div >
+                {err.attack ? (
                         <p>{err.attack}</p>
-                    )}
-                </div>
-                <div>
+                    )
+                    :(<div className="spacer"></div>)
+                }
+                <div className="labinp">
                 <label>Defense:</label>
                     <input 
                     type = "number"
@@ -122,10 +134,12 @@ export default function CreatePokemon(){
                     onChange={(e) => handleInputChange(e)}
                     />  
                 </div>
-                {err.defense && (
+                {err.defense ? (
                         <p>{err.defense}</p>
-                    )}
-                <div>
+                    ) : (<div className="spacer"></div>)
+                }
+                <div className="labinp">
+                
                 <label>Speed:</label>
                     <input 
                     type = "number"
@@ -133,11 +147,13 @@ export default function CreatePokemon(){
                     name = "speed"
                     onChange={(e) => handleInputChange(e)}
                     /> 
-                    {err.speed && (
-                        <p>{err.speed}</p>
-                    )} 
+                    
                 </div>
-                <div>
+                {err.speed ? (
+                        <p>{err.speed}</p>
+                    ) :(<div className="spacer"></div>)
+                } 
+                <div className="labinp">
                 <label>Height:</label>
                     <input 
                     type = "number"
@@ -145,11 +161,12 @@ export default function CreatePokemon(){
                     name = "height"
                     onChange={(e) => handleInputChange(e)}
                     />  
-                    {err.height && (
-                        <p>{err.height}</p>
-                    )}
+                    
                 </div>
-                <div>
+                {err.height ? (
+                        <p>{err.height}</p>
+                    ):(<div className="spacer"></div>)}
+                <div className="labinp">
                 <label>Weight:</label>
                     <input 
                     type = "number"
@@ -157,15 +174,16 @@ export default function CreatePokemon(){
                     name = "weight"
                     onChange={(e) => handleInputChange(e)}
                     /> 
-                    {err.weight && (
-                        <p>{err.weight}</p>
-                    )} 
+                    
                 </div> 
+                {err.weight ? (
+                        <p>{err.weight}</p>
+                    ):(<div className="spacer"></div>)} 
 
-                <div>
+                <div className="labinp"> 
                     {
                         input.types.length < 2 ?(
-                            <select name = "types" onChange={e => handleSelect(e)}>
+                            <select className="select" name = "types" onChange={e => handleSelect(e)}>
                             <option value="none" selected disabled hidden>Select Type(s)</option>
                                 {
                                     types?.map((el) =>{
@@ -184,11 +202,11 @@ export default function CreatePokemon(){
                         <p>{err.types}</p>
                     )}
                 
-                <div>
+                <div >
                 {
                     input.types?.map((el) =>{
                         return(
-                            <button type="button"
+                            <button type="button" className="typeBtn"
                             value={el.name} onClick={() => deleteOnClick(el)}>{el.name}</button> 
                         )
                     })
@@ -196,16 +214,18 @@ export default function CreatePokemon(){
                 </div>    
             
             </div>
+            <div className="createDiv">
             { 
                 Object.keys(err).length < 1 ? (
                 <button
-                style={{color:"green"}}
+                className="creationBtn"
                 type="submit">Create Pokemon!</button>
                 )
                 : (<p>Not ready</p>)
             }
-            
+            </div>
             </form>
+        </div>
             
         </div>
     )

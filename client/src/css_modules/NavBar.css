@@ -3,7 +3,7 @@
 	align-items: center;
 	justify-content: space-around; /*space between los deja en los extremos 
      añadir separación entre los botones*/
-    height: 10vh;
+    height: 11vh;
     width: 100vw;
     background-color: red;
 }
@@ -11,4 +11,34 @@
 .logo {
     max-height: 90%;
     max-width: 95%;
+    margin-bottom: 5px;
 }
+
+.btnNav{
+    
+    /* background: none;
+    color: inherit;
+    border: inherit;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;*/
+    border-radius: 10px;
+    border: solid 2px;
+    background-color: lightgoldenrodyellow;
+    cursor: pointer;
+  
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: large; 
+    margin: 10px;
+
+
+    transition: background-color 0.1s ease-in-out; 
+  }
+  
+  .btnNav:hover {
+    background-color: darkorange;
+  }

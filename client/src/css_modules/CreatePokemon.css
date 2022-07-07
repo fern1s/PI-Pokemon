@@ -1,0 +1,74 @@
+.formContainer {
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+.formContainer label{
+    font-weight: bold;
+    
+}
+.noNav{
+    margin-top: 20px;
+    border: solid 3px;
+    border-radius: 15px;
+    width: 310px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.labinp {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.labinp p{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    position: relative;
+}
+
+.createDiv{
+    margin-top: 15px;
+}
+
+.creationBtn{
+    font-size: large;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.creationBtn:hover{
+    background-color: red;
+}
+
+.typeBtn{
+    width: 70px;
+    height: 22px;
+    margin-top: 5px;
+    font-size:15px;
+    border: solid 1px;
+    border-radius: 10px;
+    background-color: lightgreen;
+    cursor: pointer;
+}
+.spacer{
+    height: 52.909px;
+}
+
+
+.select{
+    height: 25px;
+}

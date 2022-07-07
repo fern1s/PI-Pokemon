@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { pokemonDetail } from "../actions/actions";
 import NavBar from "./NavBar";
+import firstLetter from "../utils/toUpperCase";
 
 
 export default function PokemonDetails(){
@@ -17,14 +18,14 @@ export default function PokemonDetails(){
 useEffect(()=>{
     dispatch(pokemonDetail(id))
 }, [dispatch, id])
-console.log(data)
+console.log("data.name", data.name)
 
  //estilar los h4 como cajitas
     return(
         <div>
             <NavBar />
             <div>
-                <h2>{data.name}</h2>
+                <h2>{firstLetter(data.name)}</h2>
                 <h3>Pokemon N°: {data.id}</h3>
                 <img src={data.image} alt="pokemon" width="200px" height="250px"/>
                     <div>

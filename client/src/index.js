@@ -26,9 +26,6 @@ const Root = ( //probando esto
       <Route exact path="/">
         <FirstPage />
       </Route>
-      <Route exact path="/about">
-        <h2>About</h2>
-      </Route>
       <Route exact path="/Home">
         <Home />
       </Route>
@@ -38,8 +35,8 @@ const Root = ( //probando esto
       <Route exact path="/pokemon/:id">
         <PokemonDetails />
       </Route>
-      <Route path="/">
-        <h2>Default if no match</h2>
+      <Route>
+        <Home />
       </Route>
     </Switch>
   </Router>

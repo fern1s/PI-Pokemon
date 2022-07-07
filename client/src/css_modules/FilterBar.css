@@ -1,0 +1,22 @@
+.cont {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.srch {
+    display: flex;
+    
+    margin-bottom: 5px;
+    margin-top: 3px;
+}
+
+.inpt {
+    width: 200px;
+    height: 20px;
+}
+
+.sl {
+    margin-top: 5px;
+    margin-bottom: 7px;
+}
