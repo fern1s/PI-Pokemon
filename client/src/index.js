@@ -42,7 +42,6 @@ const Root = ( //probando esto
   </Router>
   
   </Provider>
-  aaaaaaaaaaaaa
 );
 
 ReactDOM.render(Root, document.getElementById('root'));
