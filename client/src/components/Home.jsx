@@ -49,7 +49,7 @@ export default function Home(){
         <NavBar />
         
         <button className="refresh" onClick={e=>{handleClick(e)}}>
-            Volver a cargar los Pokemones
+            Refresh Pokemons
         </button>
 
         <FilterBar paginate={paginate}/>
@@ -76,7 +76,7 @@ export default function Home(){
                 
             )   
             })
-            : <h2> Pokemons not found</h2>
+            : <h2 className="notFound"> Pokemons not found</h2>
         }
         </div>
     

@@ -3,14 +3,31 @@
     display: flex;
     width: 100vw;
     height:100vh;
-    background-color: red;
+    position: relative;
+    z-index: 0;
+
+    background-image: url(https://www.ikeinyyo.com/assets/images/posts/mis-pokemon-favoritos/header.jpg);
+    background-position: center;    
     justify-content: center;
     align-items: center;
 }
 
 .start {
-   font-size: 75px;
-   background-color: yellow;
+   font-size: 80px;
+   background-color: white;
+   font-weight: bold;
+   text-decoration: none;
+   color: blue;
+   padding: 10px;
+   border: solid 7px;
+   border-radius: 15px;
+
+   
+  }
+  .start:hover{
+    
+    background-color: yellow;
+    
   }
   
   

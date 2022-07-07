@@ -47,7 +47,7 @@ export default function FilterBar({paginate}){
             <div className="srch">
                 <input 
                 className="inpt"
-                type = "text" placeholder = "Buscar Pokemon" 
+                type = "text" placeholder = "Search Pokemon" 
                 onChange={(e) => handleInputChange(e)}
                 />
                 <button type="submit" onClick={(e) => handleSubmit(e)}>Buscar</button>

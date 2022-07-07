@@ -43,7 +43,7 @@ export default function CreatePokemon(){
             ...input,
             [e.target.name]: [...input.types, {name:e.target.value}]
         })
-        setErr(validateInput({...input, [e.target.name]: e.target.value}))
+        setErr(validateInput({...input, [e.target.name]: [...input.types, {name: e.target.value}]}))
         //console.log("input", input)
     }
 
@@ -186,7 +186,7 @@ export default function CreatePokemon(){
                             <select className="select" name = "types" onChange={e => handleSelect(e)}>
                             <option value="none" selected disabled hidden>Select Type(s)</option>
                                 {
-                                    types?.map((el) =>{
+                                    types?.slice(1).map((el) =>{
                                         return (
                                             <option value={el.name}> {el.name} </option>
                                         )

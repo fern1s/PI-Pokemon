@@ -1,5 +1,6 @@
 .pokeCardContainer {
-    background-color:lightcyan;
+    background: rgb(52,43,207);
+    background: linear-gradient(180deg, rgba(52,43,207,1) 0%, rgba(87,87,241,1) 10%, rgba(0,210,252,1) 65%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,13 +44,16 @@
 .prueba h3{
     margin-block-end: 0;
     margin-block-start: 10px;
-    color: red;
+    
     width: 71px;
     text-align: center;
     font-size: medium;
     padding: 3px;
-    border: solid 3px darkslateblue;
+    border: solid 2px green;
     border-radius: 10px;
+    color: rgba(0, 0, 255, 0.657);
+    background-color: lightgreen;
+    
 }
 /* .imagen{
     width: 110px;

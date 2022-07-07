@@ -3,17 +3,34 @@
     flex-direction: column;
     
 }
+.cont select{
+    padding: 1px;
+    height: 25px;
+    border: solid 2px;
+    font-weight: bold;
+}
 
 .srch {
     display: flex;
-    
+    justify-content: center;
+    align-items: stretch;
     margin-bottom: 5px;
     margin-top: 3px;
+}
+.srch button{
+    border: solid 2px;
+    height: 26px;
+    padding: 1px 2px;
+    cursor: pointer;
+    
 }
 
 .inpt {
     width: 200px;
     height: 20px;
+    border: solid 2px;
+    margin-bottom: 3px;
+    font-weight: bold;
 }
 
 .sl {

@@ -64,26 +64,34 @@ router.use(express.json())
 
  router.get("/pokemons/:id", async (req, res) => {
     const { id } = req.params;
-    if(id>= 3000){
-        let poke = await Pokemon.findByPk(id, {include:{model: Type}});
-        return res.json(poke);
-    } else{
-        let call = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        //let poke = await call.json();
-        let obj = {
-            id: call.data.id,
-            name: call.data.name,
-            types: niveladorType(call.data.types),
-            image: call.data.sprites.other.dream_world.front_default,
-            height: call.data.height,
-            weight: call.data.weight,
-            hp: call.data.stats[0].base_stat,
-            attack: call.data.stats[1].base_stat,
-            defense: call.data.stats[2].base_stat,
-            speed: call.data.stats[5].base_stat,
-        };
-        res.send(obj)
+    try{
+        if(id>= 3000){
+            let poke = await Pokemon.findByPk(id, {include:{model: Type}});
+            return res.json(poke);
+        } else{
+            let call = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            //let poke = await call.json();
+            let obj = {
+                id: call.data.id,
+                name: call.data.name,
+                types: niveladorType(call.data.types),
+                image: call.data.sprites.other.dream_world.front_default,
+                height: call.data.height,
+                weight: call.data.weight,
+                hp: call.data.stats[0].base_stat,
+                attack: call.data.stats[1].base_stat,
+                defense: call.data.stats[2].base_stat,
+                speed: call.data.stats[5].base_stat,
+            };
+            res.send(obj)
+        }
+    
     }
+    catch(e){
+        console.log(e)
+        res.send("Algo salió mal al pedir este pokemon. " + e)
+        }
+   
  })
 
  router.post("/pokemons", async (req, res) =>{

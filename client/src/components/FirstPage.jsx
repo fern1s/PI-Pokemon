@@ -15,8 +15,8 @@ function FirstPage() {
 
   return (
     <div className="container">
-      <div className="start"> 
-        <Link to="/home">Start!</Link>
+      <div > 
+        <Link to="/home" className="start">Start!</Link>
         </div> 
     </div> //tengo que usar la libreria styled para usar modules creo
   );

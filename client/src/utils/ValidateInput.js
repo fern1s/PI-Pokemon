@@ -32,6 +32,7 @@ export default function validateInput(input){
 
     if(input.types.length === 0) errors.types = "Must have at least 1 type"
     
+    
 
 
     return errors
