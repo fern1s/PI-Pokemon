@@ -156,6 +156,7 @@ para traer los tipos desde la base (sin que intente volver a crearlos en la db y
 catch(e){res.status(400).send("Error al cargar los Tipos. " + e)}
 })
 
+
  
 
 
