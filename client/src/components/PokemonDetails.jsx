@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { pokemonDetail } from "../actions/actions";
+import { pokemonDetail, emptyDetails } from "../actions/actions";
 import NavBar from "./NavBar";
 import firstLetter from "../utils/toUpperCase";
 import "../css_modules/PokeDetail.css"
@@ -18,6 +18,7 @@ export default function PokemonDetails(){
 
 useEffect(()=>{
     dispatch(pokemonDetail(id))
+    return () => dispatch(emptyDetails()) //esto solo se ejecuta cuando el comp se desmonta, por el return!
 }, [dispatch, id])
 console.log("data.name", data.name)
 

@@ -57,6 +57,11 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 pokemons: action.payload
             }
+        case "EMPTY_DETAILS":
+            return{
+                ...state,
+                pokemonDetail: {}
+            }
         default:
             return state;
     }

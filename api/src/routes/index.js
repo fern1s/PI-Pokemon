@@ -156,6 +156,28 @@ para traer los tipos desde la base (sin que intente volver a crearlos en la db y
 catch(e){res.status(400).send("Error al cargar los Tipos. " + e)}
 })
 
+router.get("/compare/:n", async (req, res) =>{
+    try{
+        const num = req.params.n;
+        
+        const list = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=40`) 
+        const arrayResponse = await list.data.results.map(async elemento => {
+           let details = await axios.get(`${elemento.url}`);
+           
+           let obj = {
+               id: details.data.id,
+               name: details.data.name,
+               attack: details.data.stats[1].base_stat,
+           }
+           return obj;
+           });
+           const pokeDatos = await Promise.all(arrayResponse);
+           const filtrados = pokeDatos.filter((el) => el.attack < num)
+           res.status(200).send(filtrados)
+    }
+    catch(e){ res.status(400).send(e)}
+})
+
  
 
 

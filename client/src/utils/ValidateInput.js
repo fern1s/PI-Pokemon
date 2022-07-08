@@ -2,7 +2,7 @@ export default function validateInput(input){
     let errors = {}
     console.log(input)
     if(!input.name) errors.name = "A name is required"
-    if(!/^[a-zA-Z\s]*$/g.test(input.name)) errors.name = "Only letters allowed"
+    if(!/^[A-Za-z]+$/.test(input.name)) errors.name = "Only letters allowed"
     if(input.name.length > 20) errors.name = "Name must be 20 characters or less"
 
     if(!input.hp) errors.hp = "Give some Hp to your Pokemon!"
@@ -31,6 +31,15 @@ export default function validateInput(input){
     if(input.weight > 1000 || input.weight < 1) errors.weight = "Weight must be between 1 and 1000"
 
     if(input.types.length === 0) errors.types = "Must have at least 1 type"
+    
+    function checkRepeated(array) {
+        let indicador = false
+        for(let i = 1; i < array.length; i++){
+            if(array[i].name === array[i-1].name) indicador = true
+        }
+        return indicador
+      }
+    if(checkRepeated(input.types)) errors.types = "Select two different types please"
     
     
 

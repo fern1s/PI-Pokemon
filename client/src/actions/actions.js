@@ -60,3 +60,9 @@ export function searchPokemon(payload){
 		return dispatch({type: "SEARCH_POKEMON", payload: res.data});
 	}
 }
+
+export function emptyDetails(){
+	return {
+		type: "EMPTY_DETAILS"
+	}
+}
