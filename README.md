@@ -8,6 +8,7 @@
 <li>Instalar las dependencias de api y client (npm i) </li>
 <li>Iniciar tanto api como client (npm start) </li>
 </ul>
+
 ## Objetivos del Proyecto
 
 - Construir una App utlizando React, Redux, Node y Sequelize.
