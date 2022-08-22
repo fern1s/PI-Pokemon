@@ -4,7 +4,8 @@
 
 ## Inicialización rápida del proyecto:
 -Descargar el repositorio
--N
+-Instalar las dependencias de api y client (npm i)
+-Iniciar tanto api como client (npm start)
 
 ## Objetivos del Proyecto
 
